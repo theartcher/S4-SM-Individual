@@ -6,8 +6,6 @@ _Take me back to the [home](../../README.md)_
   - [Description](#description)
     - [Learning outcome](#learning-outcome)
     - [Clarification](#clarification)
-  - [Implementation](#implementation)
-  - [Relevant questions](#relevant-questions)
 
 ## Description
 
@@ -25,7 +23,3 @@ _Take me back to the [home](../../README.md)_
 - _User friendly:_ The designs meet usability and UCD quality standards.
 - _Designs:_ Products that describe the problem, target audience, interaction narrative, user interface and comply with software engineering standards.
 - You process the feedback given in your work. You incorporate the output of previous design and analysis steps into every new design iteration in a meaningful way.
-
-## Implementation
-
-## Relevant questions

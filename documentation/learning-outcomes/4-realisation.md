@@ -6,8 +6,6 @@ _Take me back to the [home](../../README.md)_
   - [Description](#description)
     - [Learning outcome](#learning-outcome)
     - [Clarification](#clarification)
-  - [Implementation](#implementation)
-  - [Relevant questions](#relevant-questions)
 
 ## Description
 
@@ -29,7 +27,3 @@ _Take me back to the [home](../../README.md)_
 - _Hardware:_ Internal and or external sensor.
 
 You process the feedback given in your work.
-
-## Implementation
-
-## Relevant questions

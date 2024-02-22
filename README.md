@@ -8,9 +8,11 @@ _By [Joris Brugman](https://github.com/theartcher)_
   - [Overview](#overview)
   - [Introduction](#introduction)
   - [Organizations, repositories \& other interesting references](#organizations-repositories--other-interesting-references)
-    - [Learning outcomes](#learning-outcomes)
     - [Research documents](#research-documents)
+    - [Reading guide](#reading-guide)
+      - [Learning outcomes](#learning-outcomes)
   - [Recent changes](#recent-changes)
+    - [Week 1 - 3](#week-1---3)
 
 ## Introduction
 
@@ -22,7 +24,15 @@ Take your time to look through this document, **or [skip to the changes since la
 
 I've done nothing interesting so far :(
 
-### Learning outcomes
+### Research documents
+
+No research has been done so far.
+
+### Reading guide
+
+#### Learning outcomes
+
+To get more specifics on what a specific learning outcome encompasses, take a look at each one here:
 
 - [1. Analysis](./documentation/learning-outcomes/1-analysis.md)
 - [2. Advice](./documentation/learning-outcomes/2-advice.md)
@@ -31,10 +41,10 @@ I've done nothing interesting so far :(
 - [5. Management & control](./documentation/learning-outcomes/5-management-and-control.md)
 - [6. Professional skills](./documentation/learning-outcomes/6-profesional-skills.md)
 
-### Research documents
-
-No research has been done so far.
-
 ## Recent changes
 
-- Initialized portfolio structure.
+### Week 1 - 3
+
+- Created this portfolio.
+- Got a basic information infrastructure working, the duo project has a corresponding [Github organization](https://github.com/S4-Smart-mobile/) and a [JIRA board](/static/images/Jira-screenshot-21-02-2024.png).
+- Started work on the research document in regard to the [DUO app](https://github.com/S4-Smart-mobile/S4-Smart-Mobile/blob/main/documentation/research/cultural-exchange-research.md).

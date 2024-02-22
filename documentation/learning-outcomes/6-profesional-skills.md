@@ -6,8 +6,6 @@ _Take me back to the [home](../../README.md)_
   - [Description](#description)
     - [Learning outcome](#learning-outcome)
     - [Clarification](#clarification)
-  - [Implementation](#implementation)
-  - [Relevant questions](#relevant-questions)
 
 ## Description
 
@@ -24,7 +22,3 @@ _Take me back to the [home](../../README.md)_
 - _Authentic and professional:_ In a context, resembling the actual industry, you show a professional attitude towards future-oriented organisation, investigative problem solving, personal leadership and targeted interaction.
   - In general, students take charge of your their development, work and study together at school, involve stakeholders and are able to organise their efforts in a structured manner.
 - _Visible:_ You show your work in a portfolio. You process the feedback given in your work.
-
-## Implementation
-
-## Relevant questions

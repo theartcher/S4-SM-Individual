@@ -6,8 +6,6 @@ _Take me back to the [home](../../README.md)_
   - [Description](#description)
     - [Learning outcome](#learning-outcome)
     - [Clarification](#clarification)
-  - [Implementation](#implementation)
-  - [Relevant questions](#relevant-questions)
 
 ## Description
 
@@ -22,7 +20,3 @@ _Take me back to the [home](../../README.md)_
 ### Clarification
 
 Stakeholders are all clients, (future) developers, all users. You process the feedback given in your work.
-
-## Implementation
-
-## Relevant questions

@@ -6,8 +6,6 @@ _Take me back to the [home](../../README.md)_
   - [Description](#description)
     - [Learning outcome](#learning-outcome)
     - [Clarification](#clarification)
-  - [Implementation](#implementation)
-  - [Relevant questions](#relevant-questions)
 
 ## Description
 
@@ -24,7 +22,3 @@ _Take me back to the [home](../../README.md)_
 You consider the following aspects in your advice: iterative way of working, outcomes of user tests, create POC’s. You process the feedback given in your work.
 
 - _Relevant analysis:_ outcomes of the analysis phase done by you, your team or other developers.
-
-## Implementation
-
-## Relevant questions
