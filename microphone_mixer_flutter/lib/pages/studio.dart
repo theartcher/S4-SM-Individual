@@ -108,7 +108,7 @@ class _StudioRouteState extends State<StudioRoute> {
                 icon: Icon(isPlaying ? Icons.pause : Icons.play_arrow),
                 iconSize: 50,
                 onPressed: () async {
-                  if (path == null) {
+                  if (path == 'Null' || path == null) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         content: Text(
