@@ -82,3 +82,18 @@ Within a session, a phone can both send/receive. The 'studio' phone would, in th
 [^3]: [Just audio is a out-of-the-box package for implementing media-controls to audio streams/files.](https://pub.dev/packages/just_audio)
 [^4]: [Flutter P2P is a package using Wifi-Direct to implement P2P connections between devices to send and receive data.](https://pub.dev/packages/flutter_p2p_connection)
 [^5]: https://pub.dev/packages/ffmpeg_kit_flutter
+
+note to self: teringbende
+
+studio mode
+
+- create p2p group
+- send requests to stop/start recording
+- handle incoming audio files and merge using ffmpeg
+
+recording mode
+
+- join p2p group
+- manage permissions
+- receive requests to start/stop recording
+- send audio files to studio user
