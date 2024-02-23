@@ -16,16 +16,16 @@ class StudioRoute extends StatefulWidget {
 
 class _StudioRouteState extends State<StudioRoute> {
   final audioPlayer = AudioPlayer();
-  late final FlutterSoundRecorder recorder;
+  final recorder = FlutterSoundRecorder();
   bool isPlaying = false;
   bool isRecorderReady = false;
-  late File? audioFile;
-  late String? path;
+  File? audioFile;
+  String? path;
+  DateTime? startTime;
 
   @override
   void initState() {
     super.initState();
-    recorder = FlutterSoundRecorder();
     initRecorder();
   }
 
@@ -50,13 +50,16 @@ class _StudioRouteState extends State<StudioRoute> {
     });
   }
 
-  Future<void> recordAudio() async {
+  Future<void> recordAudio(DateTime start) async {
     if (!isRecorderReady) {
       print("Is recorder ready? $isRecorderReady");
       return;
     }
 
-    await recorder.startRecorder(toFile: 'audio');
+    final DateTime now = DateTime.now();
+    if (now.isAfter(start) || now.isAtSameMomentAs(start)) {
+      await recorder.startRecorder(toFile: 'audio');
+    }
   }
 
   Future<void> stopRecording() async {
@@ -96,7 +99,8 @@ class _StudioRouteState extends State<StudioRoute> {
                   if (recorder.isRecording) {
                     await stopRecording();
                   } else {
-                    await recordAudio();
+                    final currentTime = DateTime.now();
+                    await recordAudio(currentTime);
                   }
                   setState(() {});
                 },
