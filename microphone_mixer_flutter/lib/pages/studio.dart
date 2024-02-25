@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_sound/flutter_sound.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:microphone_mixer_flutter/pages/microphone.dart';
+import 'package:web_socket_channel/io.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 
 class StudioRoute extends StatefulWidget {
   const StudioRoute({super.key});
@@ -16,62 +18,46 @@ class StudioRoute extends StatefulWidget {
 
 class _StudioRouteState extends State<StudioRoute> {
   final audioPlayer = AudioPlayer();
-  final recorder = FlutterSoundRecorder();
-  bool isPlaying = false;
-  bool isRecorderReady = false;
-  File? audioFile;
-  String? path;
-  DateTime? startTime;
+  TextEditingController urlController = TextEditingController()
+    ..text = "ws://box-busy.gl.at.ply.gg:12466";
+  WebSocketChannel? channel;
 
   @override
   void initState() {
     super.initState();
-    initRecorder();
+    initWebSocket();
   }
 
   @override
   void dispose() {
-    recorder.closeRecorder();
-
+    urlController.dispose();
+    channel?.sink.close();
     super.dispose();
   }
 
-  Future<void> initRecorder() async {
-    final status = await Permission.microphone.request();
+  void initWebSocket() async {
+    final url = urlController.text.trim();
+    final wsUrl = Uri.parse(url);
+    channel = IOWebSocketChannel.connect(wsUrl);
 
-    if (status != PermissionStatus.granted) {
-      throw "Microphone permission not granted";
+    if (channel == null) {
+      print("Websocket channel is null!");
     }
 
-    await recorder.openRecorder();
-
-    setState(() {
-      isRecorderReady = true;
-    });
+    await channel?.ready;
   }
 
-  Future<void> recordAudio(DateTime start) async {
-    if (!isRecorderReady) {
-      print("Is recorder ready? $isRecorderReady");
-      return;
-    }
-
-    final DateTime now = DateTime.now();
-    if (now.isAfter(start) || now.isAtSameMomentAs(start)) {
-      await recorder.startRecorder(toFile: 'audio');
-    }
+  void sendStart() async {
+    var startTime = DateTime.now().add(const Duration(seconds: 3));
+    startTime.toString();
+    channel?.sink.add('start@$startTime');
   }
 
-  Future<void> stopRecording() async {
-    if (!isRecorderReady) {
-      print("Is recorder ready? $isRecorderReady");
-      return;
-    }
+  void sendStop() async {
+    var stopTime = DateTime.now().add(const Duration(seconds: 3));
+    stopTime.toString();
 
-    path = await recorder.stopRecorder();
-    audioFile = File(path!);
-
-    print("Recorded audio @: $audioFile");
+    channel?.sink.add('stop@$stopTime');
   }
 
   @override
@@ -87,50 +73,27 @@ class _StudioRouteState extends State<StudioRoute> {
                   MaterialPageRoute(builder: (context) => MicrophoneRoute()),
                 );
               },
-              child: Text('Go to Second Page'),
+              child: const Text('Go to Second Page'),
             ),
-            Center(
-              child: ElevatedButton(
-                child: Icon(
-                  recorder.isRecording ? Icons.stop : Icons.mic,
-                  size: 80,
-                ),
-                onPressed: () async {
-                  if (recorder.isRecording) {
-                    await stopRecording();
-                  } else {
-                    final currentTime = DateTime.now();
-                    await recordAudio(currentTime);
-                  }
-                  setState(() {});
-                },
+            TextField(
+              controller: urlController,
+              decoration: InputDecoration(
+                labelText: 'WebSocket URL',
+                hintText: 'Enter WebSocket URL',
+                fillColor: Colors.purple.shade200,
+                labelStyle:
+                    TextStyle(color: Colors.white), // Set label text color
+                hintStyle:
+                    TextStyle(color: Colors.white), // Set hint text color
               ),
+              style: TextStyle(color: Colors.purple), // Set text color
             ),
-            CircleAvatar(
-              radius: 35,
-              child: IconButton(
-                icon: Icon(isPlaying ? Icons.pause : Icons.play_arrow),
-                iconSize: 50,
-                onPressed: () async {
-                  if (path == 'Null' || path == null) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text(
-                            "You have not yet recorded any audio to play."),
-                        duration: Duration(seconds: 1),
-                      ),
-                    );
-                    return;
-                  }
-
-                  if (isPlaying) {
-                    await audioPlayer.stop();
-                  } else {
-                    await audioPlayer.play(DeviceFileSource(path!));
-                  }
-                },
-              ),
-            )
+            ElevatedButton(
+              onPressed: () {
+                sendStart();
+              },
+              child: const Text('Websocket ping.'),
+            ),
           ],
         ),
       );
