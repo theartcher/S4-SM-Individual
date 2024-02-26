@@ -10,6 +10,7 @@
     - [Interpretation](#interpretation)
     - [Available technologies](#available-technologies)
     - [Technological overview](#technological-overview)
+    - [Improvements \& Reflection](#improvements--reflection)
 
 ## Canvas case
 
@@ -50,34 +51,30 @@ A list of requirements has been created:
 - Participant management - Being able to add more than 2 entities and/or removing/adding entities.
 - Serverless - Does not require a third-party paid nor unpaid service.
 
-|                        | Stream™ [^1] | flutter_blue [^2] | just_audio [^3] | flutter_p2p_connection [^4] |
-| ---------------------- | ------------ | ----------------- | --------------- | --------------------------- |
-| Audio receiving        | ✅           | ✅                | ✅              | ✅                          |
-| Audio sending          | ✅           | ✅                | ❌              | ✅                          |
-| Audio file transfer    | ❌           | ✅                | ❌              | ✅                          |
-| Audio mixing           | ❌           | ❌                | ❌              | ❌                          |
-| Participant management | ✅           | ❌                | ❌              | ✅                          |
-| Serverless             | ❌           | ✅                | ✅              | ✅                          |
+|                        | stream_video [^1] | flutter_blue [^2] | just_audio [^3] | flutter_p2p_connection [^4] |
+| ---------------------- | ----------------- | ----------------- | --------------- | --------------------------- |
+| Audio receiving        | ✅                | ✅                | ✅              | ✅                          |
+| Audio sending          | ✅                | ✅                | ❌              | ✅                          |
+| Audio file transfer    | ❌                | ✅                | ❌              | ✅                          |
+| Audio mixing           | ❌                | ❌                | ❌              | ❌                          |
+| Participant management | ✅                | ❌                | ❌              | ✅                          |
+| Serverless             | ❌                | ✅                | ✅              | ✅                          |
+| Up-to-date/Documented  | ✅                | ❌                | ✅              | ❌                          |
 
-According to this small-scale research it is safe to say that flutter_p2p_connection is the most well-suited package for our implementation in this project. It's well documented, has examples, matches in the most requirements and is using an already well-defined protocol.
+~~According to this small-scale research it is safe to say that flutter_p2p_connection is the most well-suited package for our implementation in this project. It's well documented, has examples, matches in the most requirements and is using an already well-defined protocol. Next to that the 1 requirement which was not met 'Audio mixing', this package forms a solution that can be applied to most of the requirements within the project. The one requirement can be solved using FFmpeg[^5] which is well supported and documented both generally speaking and specific to flutter.~~
 
-Next to that the 1 requirement which was not met 'Audio mixing', this package forms a solution that can be applied to most of the requirements within the project. The one requirement can be solved using FFmpeg[^5] which is well supported and documented both generally speaking and specific to flutter.
+None of these packages fully support what is required for the project, for this reason a secondary option using less out-of-the-box tools has been chosen.
+
+- For connectivity/commands between devices, a web-socket should be created to echo messages.
+- For files, a minimal-API should handle incoming/storing files. When requested with a correct ID **the API will will merge said files using FFmpeg**.
 
 ---
 
 ### Technological overview
 
-To provide a better overview over how the devices interact with one another a few diagrams have been created. The first diagram shows how the users globally interact with one another to create connections on which data can be sent. In this case this is done by creating a 'group', a group is nothing more than a collection of devices within Wifi-Direct. 1 Device ('Studio phone) creates the group and is automatically assigned ownership.
+### Improvements & Reflection
 
-![Group management diagram](/static/images/tech-case-microphone-mixer-group-management.png)
-
-Within a session, a phone can both send/receive. The 'studio' phone would, in this instance, only send requests to start/stop recording. The receiving would be said audio files. The recording phones are doing the opposite, receiving requests and sending audio files.
-
-![Recording management diagram](/static/images/tech-case-microphone-mixer-recording-management.png)
-
-![File management diagram](/static/images/tech-case-microphone-mixer-file-management.png)
-
-[^1]: [Stream™ is a third-party service that can provide high-quality audio/video streaming using their servers.](https://getstream.io/video/docs/flutter/)
+[^1]: [A Low-level Client for Stream Video, a service for building video calls, audio rooms, and live-streaming applications.](https://pub.dev/packages/stream_video)
 [^2]: [Flutter blue is a package for handling BLE (Bluetooth low energy) data exchange in Flutter using characteristics and descriptors.](https://pub.dev/packages/flutter_blue/example)
 [^3]: [Just audio is a out-of-the-box package for implementing media-controls to audio streams/files.](https://pub.dev/packages/just_audio)
 [^4]: [Flutter P2P is a package using Wifi-Direct to implement P2P connections between devices to send and receive data.](https://pub.dev/packages/flutter_p2p_connection)

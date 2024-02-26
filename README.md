@@ -26,7 +26,7 @@ I've done nothing interesting so far :(
 
 ### Research documents
 
-No research has been done so far.
+- [Mini-technical research - Microphone Mixer](./documentation/microphone-mixer-technical-design.md)
 
 ### Reading guide
 
