@@ -1,9 +1,11 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 const PRIMARY_COLOR = Color(0xFFfd0098);
+const GROUP_ID = "837238";
 
 class StudioRoute extends StatefulWidget {
   const StudioRoute({super.key});
@@ -69,6 +71,8 @@ class _StudioRouteState extends State<StudioRoute> {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const Text(GROUP_ID != '' ? GROUP_ID : "No group set!",
+                style: TextStyle(color: PRIMARY_COLOR, fontSize: 50)),
             ElevatedButton(
               onPressed: () {
                 sendStart();

@@ -10,7 +10,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:uuid/uuid.dart';
 
-var UNIQUE_ID = Uuid().v4();
+var UNIQUE_ID = const Uuid().v4();
 const double iconDefaultSize = 40.00;
 const PRIMARY_COLOR = Color(0xFFfd0098);
 
@@ -110,7 +110,7 @@ class _MicrophoneRouteState extends State<MicrophoneRoute> {
         stopRecording(commandTime);
         break;
       default:
-        snack("Received command was not recognized: '$command'", context,
+        snack("Received command was not recognized: '$stringData'", context,
             snackOption: SnackOptions.warn);
     }
   }
@@ -153,7 +153,7 @@ class _MicrophoneRouteState extends State<MicrophoneRoute> {
       finishedRecording = true;
 
       return snack("Stopped recording.", context,
-          snackOption: SnackOptions.succes);
+          snackOption: SnackOptions.success);
     });
 
     sendConvertedAudio(audioFile, context);

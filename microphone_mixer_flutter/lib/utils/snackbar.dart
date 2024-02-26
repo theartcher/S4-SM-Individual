@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 export 'snackbar.dart';
 
-enum SnackOptions { info, succes, warn, error }
+enum SnackOptions { info, success, warn, error }
 
 void snack(String toastMessage, BuildContext context,
     {SnackOptions snackOption = SnackOptions.info}) {
@@ -13,7 +13,7 @@ void snack(String toastMessage, BuildContext context,
       bgColor = Colors.transparent;
       textColor = Colors.white;
       break;
-    case SnackOptions.succes:
+    case SnackOptions.success:
       bgColor = const Color(0xFFBFFFC6);
       textColor = Colors.black;
       break;
