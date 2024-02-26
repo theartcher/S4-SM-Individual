@@ -1,11 +1,5 @@
-import 'dart:async';
-import 'dart:io';
-
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_sound/flutter_sound.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:microphone_mixer_flutter/pages/microphone.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
@@ -40,11 +34,14 @@ class _StudioRouteState extends State<StudioRoute> {
     final wsUrl = Uri.parse(url);
     channel = IOWebSocketChannel.connect(wsUrl);
 
-    if (channel == null) {
-      print("Websocket channel is null!");
-    }
+    if (channel == null) return;
 
     await channel?.ready;
+  }
+
+  void resetWebSocket() {
+    channel = null;
+    initWebSocket();
   }
 
   void sendStart() async {
@@ -56,7 +53,6 @@ class _StudioRouteState extends State<StudioRoute> {
   void sendStop() async {
     var stopTime = DateTime.now().add(const Duration(seconds: 3));
     stopTime.toString();
-
     channel?.sink.add('stop@$stopTime');
   }
 
@@ -68,12 +64,21 @@ class _StudioRouteState extends State<StudioRoute> {
           children: [
             ElevatedButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => MicrophoneRoute()),
-                );
+                sendStart();
               },
-              child: const Text('Go to Second Page'),
+              child: const Text('Start recording.'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                sendStop();
+              },
+              child: const Text('Stop recording.'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                resetWebSocket();
+              },
+              child: const Text('Reset websocket connection.'),
             ),
             TextField(
               controller: urlController,
@@ -81,18 +86,9 @@ class _StudioRouteState extends State<StudioRoute> {
                 labelText: 'WebSocket URL',
                 hintText: 'Enter WebSocket URL',
                 fillColor: Colors.purple.shade200,
-                labelStyle:
-                    TextStyle(color: Colors.white), // Set label text color
-                hintStyle:
-                    TextStyle(color: Colors.white), // Set hint text color
+                labelStyle: const TextStyle(color: Colors.white),
               ),
-              style: TextStyle(color: Colors.purple), // Set text color
-            ),
-            ElevatedButton(
-              onPressed: () {
-                sendStart();
-              },
-              child: const Text('Websocket ping.'),
+              style: const TextStyle(color: Colors.purple),
             ),
           ],
         ),

@@ -1,18 +1,21 @@
 import 'dart:async';
+import 'dart:ffi';
 import 'dart:io';
 
-import 'package:audioplayers/audioplayers.dart';
+import 'package:microphone_mixer_flutter/utils/_snackbar.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_sound/flutter_sound.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:microphone_mixer_flutter/pages/microphone.dart';
-import 'package:web_socket_channel/io.dart';
 import 'package:http/http.dart' as http;
 import 'package:web_socket_channel/web_socket_channel.dart';
-import 'dart:io';
-import 'package:flutter/material.dart';
 import 'package:http_parser/http_parser.dart';
+import 'package:uuid/uuid.dart';
+
+//! VARIABLE DECLARATIONS
+
+const FILE_API_URL = "https://nps3rr-ip-185-250-138-40.tunnelmole.net";
+var UNIQUE_ID = Uuid().v4();
 
 class MicrophoneRoute extends StatefulWidget {
   const MicrophoneRoute({super.key});
@@ -22,10 +25,10 @@ class MicrophoneRoute extends StatefulWidget {
 }
 
 class _MicrophoneRouteState extends State<MicrophoneRoute> {
-  final recorder = FlutterSoundRecorder();
-  final iconDefaultSize = 40.toDouble();
+  final FlutterSoundRecorder recorder = FlutterSoundRecorder();
+  final double iconDefaultSize = 40.00;
 
-  bool isPlaying = false;
+  bool isRecording = false;
   bool isRecorderReady = false;
   bool finishedRecording = false;
   File? audioFile;
@@ -50,15 +53,6 @@ class _MicrophoneRouteState extends State<MicrophoneRoute> {
     super.dispose();
   }
 
-  void _toast(var toastMessage) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(toastMessage),
-        duration: Duration(seconds: 2),
-      ),
-    );
-  }
-
   void initWebsocket() async {
     final url = urlController.text.trim();
     final wsUrl = Uri.parse(url);
@@ -71,22 +65,28 @@ class _MicrophoneRouteState extends State<MicrophoneRoute> {
     await channel?.ready;
 
     channel?.stream.listen((data) {
-      var stringData = data.toString();
-      var splitStrings = stringData.split('@')[0];
-      var command = splitStrings[0];
-      var time = splitStrings[1];
+      String stringData = data.toString();
+      List<String> splitStrings = stringData.split('@');
+      String command = splitStrings[0];
+      String time = splitStrings[1];
+      DateTime commandTime = DateTime.parse(time);
 
       switch (command) {
         case 'start':
+          print('Start: $stringData');
+          startRecording(commandTime);
           break;
         case 'stop':
+          print('Stop: $stringData');
+          stopRecording(commandTime);
           break;
         default:
-          _toast("Received command was not recognized. $command");
+          snack("Received command was not recognized: '$command'", context,
+              toastOption: ToastOptions.warn);
       }
     });
 
-    channel?.sink.add('Flutter');
+    channel?.sink.add('Microphone mode - .');
   }
 
   Future<void> initRecorder() async {
@@ -103,22 +103,35 @@ class _MicrophoneRouteState extends State<MicrophoneRoute> {
     });
   }
 
-  Future<void> recordAudio(DateTime start) async {
+  Future<void> startRecording(DateTime start) async {
     if (!isRecorderReady) {
       print("Is recorder ready? $isRecorderReady");
       return;
     }
 
-    final DateTime now = DateTime.now();
-    if (now.isAfter(start) || now.isAtSameMomentAs(start)) {
-      await recorder.startRecorder(toFile: 'recorded-audio-$now');
+    while (DateTime.now().isBefore(start)) {
+      await Future.delayed(const Duration(milliseconds: 50));
     }
+
+    var uuidGenerator = const Uuid();
+    var uuid = uuidGenerator.v4();
+
+    await recorder.startRecorder(toFile: 'audio');
   }
 
-  Future<void> stopRecording() async {
-    if (!isRecorderReady) {
-      print("Is recorder ready? $isRecorderReady");
+  Future<void> stopRecording(DateTime stop) async {
+    if (!isRecording) {
+      snack("Fakka je bent niet aan het opnemen G.", context);
       return;
+    }
+
+    if (!isRecorderReady) {
+      snack("Is recorder ready? $isRecorderReady", context);
+      return;
+    }
+
+    while (DateTime.now().isBefore(stop)) {
+      await Future.delayed(const Duration(milliseconds: 50));
     }
 
     path = await recorder.stopRecorder();
@@ -138,7 +151,7 @@ class _MicrophoneRouteState extends State<MicrophoneRoute> {
     if (audioFile != null) {
       // Endpoint URL
       var url =
-          Uri.parse('http://arf9wb-ip-185-250-138-40.tunnelmole.net/upload/5');
+          Uri.parse('https://nps3rr-ip-185-250-138-40.tunnelmole.net/upload/5');
 
       // Create multipart request
       var request = http.MultipartRequest('POST', url);
@@ -193,12 +206,12 @@ class _MicrophoneRouteState extends State<MicrophoneRoute> {
                 labelText: 'WebSocket URL',
                 hintText: 'Enter WebSocket URL',
                 fillColor: Colors.purple.shade200,
-                labelStyle:
-                    TextStyle(color: Colors.white), // Set label text color
+                labelStyle: const TextStyle(
+                    color: Colors.white), // Set label text color
                 hintStyle:
-                    TextStyle(color: Colors.white), // Set hint text color
+                    const TextStyle(color: Colors.white), // Set hint text color
               ),
-              style: TextStyle(color: Colors.purple), // Set text color
+              style: const TextStyle(color: Colors.purple), // Set text color
             ),
           ],
         ),

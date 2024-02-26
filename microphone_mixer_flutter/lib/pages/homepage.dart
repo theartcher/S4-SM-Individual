@@ -3,7 +3,7 @@ import 'package:microphone_mixer_flutter/pages/microphone.dart';
 import 'package:microphone_mixer_flutter/pages/studio.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key});
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,8 @@ class HomePage extends StatelessWidget {
             onPressed: () async {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => MicrophoneRoute()),
+                MaterialPageRoute(
+                    builder: (context) => const MicrophoneRoute()),
               );
             },
             child: Column(
@@ -34,7 +35,7 @@ class HomePage extends StatelessWidget {
             onPressed: () async {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => StudioRoute()),
+                MaterialPageRoute(builder: (context) => const StudioRoute()),
               );
             },
             child: Column(

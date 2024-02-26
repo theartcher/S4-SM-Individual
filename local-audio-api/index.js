@@ -7,14 +7,8 @@ const tunnelmole = require("tunnelmole/cjs");
 const app = express();
 const upload = multer({
   dest: "uploads/",
-  fileFilter: (req, file, cb) => {
-    if (file.mimetype === "audio/mpeg") {
-      cb(null, true);
-    } else {
-      cb(new Error("Only MP3 files are allowed"));
-    }
-  },
 });
+
 app.post("/upload/:id", upload.single("audioFile"), (req, res) => {
   const id = req.params.id;
   const file = req.file;
