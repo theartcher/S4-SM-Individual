@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:microphone_mixer_flutter/pages/microphone.dart';
 import 'package:microphone_mixer_flutter/pages/studio.dart';
 
+const PRIMARY_COLOR = Color(0xFFfd0098);
+
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
@@ -26,8 +28,12 @@ class HomePage extends StatelessWidget {
                 Icon(
                   Icons.mic,
                   size: iconDefaultSize,
+                  color: PRIMARY_COLOR,
                 ),
-                const Text('Microphone Mode'),
+                const Text(
+                  'Microphone Mode',
+                  style: TextStyle(color: Colors.black),
+                ),
               ],
             ),
           ),
@@ -43,8 +49,12 @@ class HomePage extends StatelessWidget {
                 Icon(
                   Icons.headphones,
                   size: iconDefaultSize,
+                  color: PRIMARY_COLOR,
                 ),
-                const Text('Studio Mode'),
+                const Text(
+                  'Studio Mode',
+                  style: TextStyle(color: Colors.black),
+                ),
               ],
             ),
           ),

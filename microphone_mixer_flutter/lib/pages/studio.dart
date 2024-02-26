@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
+const PRIMARY_COLOR = Color(0xFFfd0098);
+
 class StudioRoute extends StatefulWidget {
   const StudioRoute({super.key});
 
@@ -37,6 +39,7 @@ class _StudioRouteState extends State<StudioRoute> {
     if (channel == null) return;
 
     await channel?.ready;
+    channel?.sink.add('Studio mode');
   }
 
   void resetWebSocket() {
@@ -58,6 +61,10 @@ class _StudioRouteState extends State<StudioRoute> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(
+          backgroundColor: PRIMARY_COLOR,
+          title: const Text('Studio mode'),
+        ),
         backgroundColor: Colors.grey.shade900,
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -66,29 +73,38 @@ class _StudioRouteState extends State<StudioRoute> {
               onPressed: () {
                 sendStart();
               },
-              child: const Text('Start recording.'),
+              child: const Text(
+                'Start recording.',
+                style: TextStyle(color: PRIMARY_COLOR),
+              ),
             ),
             ElevatedButton(
               onPressed: () {
                 sendStop();
               },
-              child: const Text('Stop recording.'),
+              child: const Text(
+                'Stop recording.',
+                style: TextStyle(color: PRIMARY_COLOR),
+              ),
             ),
             ElevatedButton(
               onPressed: () {
                 resetWebSocket();
               },
-              child: const Text('Reset websocket connection.'),
+              child: const Text(
+                'Reset websocket connection.',
+                style: TextStyle(color: PRIMARY_COLOR),
+              ),
             ),
             TextField(
               controller: urlController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'WebSocket URL',
                 hintText: 'Enter WebSocket URL',
-                fillColor: Colors.purple.shade200,
-                labelStyle: const TextStyle(color: Colors.white),
+                fillColor: PRIMARY_COLOR,
+                labelStyle: TextStyle(color: Colors.white),
               ),
-              style: const TextStyle(color: Colors.purple),
+              style: const TextStyle(color: PRIMARY_COLOR),
             ),
           ],
         ),
