@@ -1,5 +1,6 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:microphone_mixer_flutter/utils/snackbar.dart';
 import 'package:uuid/uuid.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
@@ -53,12 +54,14 @@ class _StudioRouteState extends State<StudioRoute> {
     var startTime = DateTime.now().add(const Duration(seconds: 3));
     startTime.toString();
     channel?.sink.add('start@$startTime');
+    snack("Sent start command!", context, snackOption: SnackOptions.success);
   }
 
   void sendStop() async {
     var stopTime = DateTime.now().add(const Duration(seconds: 3));
     stopTime.toString();
     channel?.sink.add('stop@$stopTime');
+    snack("Sent stop command!", context, snackOption: SnackOptions.success);
   }
 
   @override

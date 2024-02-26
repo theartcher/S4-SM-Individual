@@ -9,6 +9,8 @@ import 'package:flutter_sound/flutter_sound.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:uuid/uuid.dart';
+import 'package:record/record.dart';
+import 'package:path_provider/path_provider.dart';
 
 var UNIQUE_ID = const Uuid().v4();
 const double iconDefaultSize = 40.00;
@@ -22,8 +24,9 @@ class MicrophoneRoute extends StatefulWidget {
 }
 
 class _MicrophoneRouteState extends State<MicrophoneRoute> {
-  final FlutterSoundRecorder recorder = FlutterSoundRecorder();
+  final recorder = AudioRecorder();
 
+  bool isRecording = false;
   bool isRecorderReady = false;
   bool finishedRecording = false;
   File? audioFile;
@@ -42,7 +45,7 @@ class _MicrophoneRouteState extends State<MicrophoneRoute> {
 
   @override
   void dispose() {
-    recorder.closeRecorder();
+    recorder.dispose();
     urlController.dispose();
     channel?.sink.close();
     super.dispose();
@@ -54,8 +57,8 @@ class _MicrophoneRouteState extends State<MicrophoneRoute> {
   }
 
   Future<void> initRecorder() async {
-    if (recorder.isRecording) {
-      await recorder.stopRecorder();
+    if (await recorder.isRecording()) {
+      await recorder.stop();
     }
 
     final status = await Permission.microphone.request();
@@ -64,8 +67,6 @@ class _MicrophoneRouteState extends State<MicrophoneRoute> {
       return snack("Microphone permission not granted.", context,
           snackOption: SnackOptions.warn);
     }
-
-    await recorder.openRecorder();
 
     setState(() {
       isRecorderReady = true;
@@ -87,52 +88,65 @@ class _MicrophoneRouteState extends State<MicrophoneRoute> {
     await channel?.ready;
 
     channel?.stream.listen((data) {
-      handleStreamCommands(data);
+      String stringData = data.toString();
+      List<String> splitStrings = stringData.split('@');
+      String command = splitStrings[0];
+      String time = splitStrings[1];
+      DateTime commandTime = DateTime.parse(time);
+
+      switch (command) {
+        case 'start':
+          print('Start: $stringData');
+          startRecording(commandTime);
+          break;
+        case 'stop':
+          print('Stop: $stringData');
+          stopRecording(commandTime);
+          break;
+        default:
+          snack("Received command was not recognized: '$stringData'", context,
+              snackOption: SnackOptions.warn);
+      }
     });
 
     channel?.sink.add('Microphone mode - $UNIQUE_ID');
   }
 
-  void handleStreamCommands(dynamic data) {
-    String stringData = data.toString();
-    List<String> splitStrings = stringData.split('@');
-    String command = splitStrings[0];
-    String time = splitStrings[1];
-    DateTime commandTime = DateTime.parse(time);
-
-    switch (command) {
-      case 'start':
-        print('Start: $stringData');
-        startRecording(commandTime);
-        break;
-      case 'stop':
-        print('Stop: $stringData');
-        stopRecording(commandTime);
-        break;
-      default:
-        snack("Received command was not recognized: '$stringData'", context,
-            snackOption: SnackOptions.warn);
-    }
-  }
-
   Future<void> startRecording(DateTime start) async {
     await initRecorder();
+    if (isRecording) {
+      return snack("You are already recording dumbass...", context,
+          snackOption: SnackOptions.error);
+    }
+
     if (!isRecorderReady) {
       return snack(
           "Recorder was not ready when receiving start command", context,
           snackOption: SnackOptions.error);
     }
 
+    Directory appDocDir = await getApplicationDocumentsDirectory();
+    String appDocPath = appDocDir.path;
+
     while (DateTime.now().isBefore(start)) {
       await Future.delayed(const Duration(milliseconds: 50));
     }
 
-    await recorder.startRecorder(toFile: 'audio-$UNIQUE_ID');
+    await recorder.start(const RecordConfig(),
+        path: '$appDocPath/audio-$UNIQUE_ID.m4a');
+
+    snack("Started recording @ ${DateTime.now().toString()}", context,
+        snackOption: SnackOptions.success);
+
+    setState(() {
+      isRecording = true;
+    });
   }
 
   Future<void> stopRecording(DateTime stop) async {
-    if (!recorder.isRecording) {
-      snack("Fakka je bent niet aan het opnemen G.", context);
+    if (!await recorder.isRecording()) {
+      snack("Fakka je bent niet aan het opnemen G.", context,
+          snackOption: SnackOptions.warn);
       return;
     }
 
@@ -143,19 +157,18 @@ class _MicrophoneRouteState extends State<MicrophoneRoute> {
     }
 
     while (DateTime.now().isBefore(stop)) {
-      await Future.delayed(const Duration(milliseconds: 50));
+      await Future.delayed(const Duration(milliseconds: 10));
     }
 
-    path = await recorder.stopRecorder();
+    path = await recorder.stop();
     audioFile = File(path!);
 
     setState(() {
       finishedRecording = true;
-
-      return snack("Stopped recording.", context,
-          snackOption: SnackOptions.success);
+      isRecording = false;
     });
 
+    snack("Stopped recording.", context, snackOption: SnackOptions.success);
     sendConvertedAudio(audioFile, context);
   }
 

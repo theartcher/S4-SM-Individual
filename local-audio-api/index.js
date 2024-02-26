@@ -3,11 +3,13 @@ const multer = require("multer");
 const fs = require("fs");
 const path = require("path");
 const tunnelmole = require("tunnelmole/cjs");
-const crypto = require("crypto");
 
 const app = express();
 const upload = multer({
   dest: "uploads/",
+  limits: {
+    fileSize: 5000 * 1024 * 1024,
+  },
 });
 
 app.post("/upload/:id", upload.single("audioFile"), (req, res) => {
@@ -52,8 +54,4 @@ app.get("/files/:id", (req, res) => {
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
-});
-
-tunnelmole({
-  port: PORT,
 });
