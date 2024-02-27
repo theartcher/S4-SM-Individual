@@ -11,6 +11,7 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:uuid/uuid.dart';
 import 'package:record/record.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:ntp/ntp.dart';
 
 var UNIQUE_ID = const Uuid().v4();
 const double iconDefaultSize = 40.00;
@@ -96,11 +97,13 @@ class _MicrophoneRouteState extends State<MicrophoneRoute> {
 
       switch (command) {
         case 'start':
-          print('Start: $stringData');
+          snack("Received start command", context,
+              snackOption: SnackOptions.success);
           startRecording(commandTime);
           break;
         case 'stop':
-          print('Stop: $stringData');
+          snack("Received stop command", context,
+              snackOption: SnackOptions.success);
           stopRecording(commandTime);
           break;
         default:
@@ -115,7 +118,7 @@ class _MicrophoneRouteState extends State<MicrophoneRoute> {
   Future<void> startRecording(DateTime start) async {
     await initRecorder();
     if (isRecording) {
-      return snack("You are already recording dumbass...", context,
+      return snack("You are already recording.", context,
           snackOption: SnackOptions.error);
     }
 
@@ -125,12 +128,20 @@ class _MicrophoneRouteState extends State<MicrophoneRoute> {
           snackOption: SnackOptions.error);
     }
 
+    // Calculate time difference
+    DateTime now = await NTP.now();
+    Duration difference = start.difference(now);
+
+    if (difference.isNegative) {
+      return snack("Cannot start recording in the past.", context,
+          snackOption: SnackOptions.error);
+    }
+
+    // Wait until the exact time
+    await Future.delayed(difference);
+
     Directory appDocDir = await getApplicationDocumentsDirectory();
     String appDocPath = appDocDir.path;
-
-    while (DateTime.now().isBefore(start)) {
-      await Future.delayed(const Duration(milliseconds: 50));
-    }
 
     await recorder.start(const RecordConfig(),
         path: '$appDocPath/audio-$UNIQUE_ID.m4a');
@@ -145,7 +156,7 @@ class _MicrophoneRouteState extends State<MicrophoneRoute> {
 
   Future<void> stopRecording(DateTime stop) async {
     if (!await recorder.isRecording()) {
-      snack("Fakka je bent niet aan het opnemen G.", context,
+      snack("You are not currently recording.", context,
           snackOption: SnackOptions.warn);
       return;
     }
@@ -156,9 +167,17 @@ class _MicrophoneRouteState extends State<MicrophoneRoute> {
       return;
     }
 
-    while (DateTime.now().isBefore(stop)) {
-      await Future.delayed(const Duration(milliseconds: 10));
+    // Calculate time difference
+    DateTime now = await NTP.now();
+    Duration difference = stop.difference(now);
+
+    if (difference.isNegative) {
+      return snack("Cannot stop recording in the past.", context,
+          snackOption: SnackOptions.error);
     }
+
+    // Wait until the exact time
+    await Future.delayed(difference);
 
     path = await recorder.stop();
     audioFile = File(path!);
