@@ -1,7 +1,8 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:microphone_mixer_flutter/utils/file_api.dart';
 import 'package:microphone_mixer_flutter/utils/snackbar.dart';
-import 'package:uuid/uuid.dart';
+import 'package:ntp/ntp.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
@@ -16,10 +17,13 @@ class StudioRoute extends StatefulWidget {
 }
 
 class _StudioRouteState extends State<StudioRoute> {
-  final audioPlayer = AudioPlayer();
+  final audioPlayer = AudioPlayer()..setReleaseMode(ReleaseMode.stop);
   TextEditingController urlController = TextEditingController()
     ..text = "ws://box-busy.gl.at.ply.gg:12466";
   WebSocketChannel? channel;
+
+  late String audioPath = '';
+  bool isPlaying = false;
 
   @override
   void initState() {
@@ -31,6 +35,7 @@ class _StudioRouteState extends State<StudioRoute> {
   void dispose() {
     urlController.dispose();
     channel?.sink.close();
+    audioPlayer.dispose();
     super.dispose();
   }
 
@@ -43,6 +48,9 @@ class _StudioRouteState extends State<StudioRoute> {
 
     await channel?.ready;
     channel?.sink.add('Studio mode');
+
+    snack("Initialized new WebSocket.", context,
+        snackOption: SnackOptions.success);
   }
 
   void resetWebSocket() {
@@ -50,16 +58,39 @@ class _StudioRouteState extends State<StudioRoute> {
     initWebSocket();
   }
 
+  void getAudio() async {
+    var path = await collectMergedAudio(context, GROUP_ID);
+
+    if (path == '' || path == null) {
+      snack("Failed to retrieve an audio file.", context,
+          snackOption: SnackOptions.error);
+    }
+
+    setState(() {
+      audioPath = path;
+    });
+
+    print("Audio - $audioPath");
+    snack("Retrieved an audio file successfully.", context,
+        snackOption: SnackOptions.success);
+  }
+
   void sendStart() async {
-    var startTime = DateTime.now().add(const Duration(seconds: 3));
+    var startTime = await NTP.now();
+    startTime = startTime.add(const Duration(seconds: 3));
+    startTime =
+        startTime.subtract(Duration(milliseconds: startTime.millisecond));
+    startTime.toIso8601String();
     startTime.toString();
     channel?.sink.add('start@$startTime');
     snack("Sent start command!", context, snackOption: SnackOptions.success);
   }
 
   void sendStop() async {
-    var stopTime = DateTime.now().add(const Duration(seconds: 3));
-    stopTime.toString();
+    var stopTime = await NTP.now();
+    stopTime = stopTime.add(const Duration(seconds: 3));
+    stopTime = stopTime.subtract(Duration(milliseconds: stopTime.millisecond));
+    stopTime.toIso8601String();
     channel?.sink.add('stop@$stopTime');
     snack("Sent stop command!", context, snackOption: SnackOptions.success);
   }
@@ -76,32 +107,29 @@ class _StudioRouteState extends State<StudioRoute> {
           children: [
             const Text(GROUP_ID != '' ? GROUP_ID : "No group set!",
                 style: TextStyle(color: PRIMARY_COLOR, fontSize: 50)),
-            ElevatedButton(
-              onPressed: () {
-                sendStart();
-              },
-              child: const Text(
-                'Start recording.',
-                style: TextStyle(color: PRIMARY_COLOR),
-              ),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                sendStop();
-              },
-              child: const Text(
-                'Stop recording.',
-                style: TextStyle(color: PRIMARY_COLOR),
-              ),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                resetWebSocket();
-              },
-              child: const Text(
-                'Reset websocket connection.',
-                style: TextStyle(color: PRIMARY_COLOR),
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    sendStart();
+                  },
+                  child: const Text(
+                    'Start recording.',
+                    style: TextStyle(color: PRIMARY_COLOR),
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    sendStop();
+                  },
+                  child: const Text(
+                    'Stop recording.',
+                    style: TextStyle(color: PRIMARY_COLOR),
+                  ),
+                ),
+              ],
             ),
             TextField(
               controller: urlController,
@@ -112,6 +140,50 @@ class _StudioRouteState extends State<StudioRoute> {
                 labelStyle: TextStyle(color: Colors.white),
               ),
               style: const TextStyle(color: PRIMARY_COLOR),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                getAudio();
+              },
+              child: const Text(
+                'Get audio.',
+                style: TextStyle(color: PRIMARY_COLOR),
+              ),
+            ),
+            Column(
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    resetWebSocket();
+                  },
+                  child: const Text(
+                    'Reset websocket connection.',
+                    style: TextStyle(color: PRIMARY_COLOR),
+                  ),
+                ),
+                Container(
+                    child: audioPath == ''
+                        ? const Text(
+                            "Womp womp no file found!",
+                            style: TextStyle(color: PRIMARY_COLOR),
+                          )
+                        : ElevatedButton(
+                            child: Text(
+                              isPlaying ? 'Pause audio' : 'Play audio',
+                              style: TextStyle(color: PRIMARY_COLOR),
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                if (isPlaying) {
+                                  audioPlayer.stop();
+                                } else {
+                                  audioPlayer.play(DeviceFileSource(audioPath));
+                                }
+                                isPlaying = !isPlaying;
+                              });
+                            },
+                          ))
+              ],
             ),
           ],
         ),

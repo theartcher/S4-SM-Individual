@@ -9,8 +9,6 @@
   - [Canvas case](#canvas-case)
     - [Interpretation](#interpretation)
     - [Available technologies](#available-technologies)
-    - [Technological overview](#technological-overview)
-    - [Improvements \& Reflection](#improvements--reflection)
 
 ## Canvas case
 
@@ -68,29 +66,8 @@ None of these packages fully support what is required for the project, for this 
 - For connectivity/commands between devices, a web-socket should be created to echo messages.
 - For files, a minimal-API should handle incoming/storing files. When requested with a correct ID **the API will will merge said files using FFmpeg**.
 
----
-
-### Technological overview
-
-### Improvements & Reflection
-
 [^1]: [A Low-level Client for Stream Video, a service for building video calls, audio rooms, and live-streaming applications.](https://pub.dev/packages/stream_video)
 [^2]: [Flutter blue is a package for handling BLE (Bluetooth low energy) data exchange in Flutter using characteristics and descriptors.](https://pub.dev/packages/flutter_blue/example)
 [^3]: [Just audio is a out-of-the-box package for implementing media-controls to audio streams/files.](https://pub.dev/packages/just_audio)
 [^4]: [Flutter P2P is a package using Wifi-Direct to implement P2P connections between devices to send and receive data.](https://pub.dev/packages/flutter_p2p_connection)
 [^5]: https://pub.dev/packages/ffmpeg_kit_flutter
-
-note to self: teringbende
-
-studio mode
-
-- create p2p group
-- send requests to stop/start recording
-- handle incoming audio files and merge using ffmpeg
-
-recording mode
-
-- join p2p group
-- manage permissions
-- receive requests to start/stop recording
-- send audio files to studio user

@@ -8,7 +8,7 @@ import 'package:path_provider/path_provider.dart';
 
 export 'file_api.dart';
 
-const FILE_API_URL = "https://nice-cloths-tease.loca.lt";
+const FILE_API_URL = "https://two-ads-mix.loca.lt";
 const GROUP_ID = "837238";
 
 void sendConvertedAudio(File? audioFile, BuildContext context) async {
