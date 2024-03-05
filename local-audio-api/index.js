@@ -65,10 +65,14 @@ app.get("/files/:id", async (req, res) => {
       }
     });
 
-    await new Promise((resolve) => {
+    ffmpegCommand.outputOptions("-acodec", "aac");
+    await new Promise((resolve, reject) => {
       ffmpegCommand
         .on("end", () => {
           resolve();
+        })
+        .on("error", (err) => {
+          reject(err);
         })
         .mergeToFile(outputFilePath);
     });

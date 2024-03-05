@@ -116,7 +116,6 @@ class _MicrophoneRouteState extends State<MicrophoneRoute> {
   }
 
   Future<void> startRecording(DateTime start) async {
-    await initRecorder();
     if (isRecording) {
       return snack("You are already recording.", context,
           snackOption: SnackOptions.error);
