@@ -66,6 +66,8 @@ None of these packages fully support what is required for the project, for this 
 - For connectivity/commands between devices, a web-socket should be created to echo messages.
 - For files, a minimal-API should handle incoming/storing files. When requested with a correct ID **the API will will merge said files using FFmpeg**.
 
+![C4 Microphone mixer](../static/images/tech-case-microphone-mixer-C4.png)
+
 [^1]: [A Low-level Client for Stream Video, a service for building video calls, audio rooms, and live-streaming applications.](https://pub.dev/packages/stream_video)
 [^2]: [Flutter blue is a package for handling BLE (Bluetooth low energy) data exchange in Flutter using characteristics and descriptors.](https://pub.dev/packages/flutter_blue/example)
 [^3]: [Just audio is a out-of-the-box package for implementing media-controls to audio streams/files.](https://pub.dev/packages/just_audio)

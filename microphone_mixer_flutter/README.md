@@ -1,16 +1,10 @@
 # microphone_mixer_flutter
 
-A new Flutter project.
-
 ## Getting Started
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1. Follow [Flutter's getting started](https://docs.flutter.dev/get-started/install) guide all the way up until you've got a working version of Flutter on your selected devices.
+2. Open a terminal in the working directory.
+3. Run `bash flutter devices` to see the available devices. A device id should be visible the 2nd column.
+4. Run 3. Run `bash flutter run -d {DEVICE_ID}`.
+5. Open the app on the phone/emulator.
+6. Enjoy!
