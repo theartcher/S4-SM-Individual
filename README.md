@@ -9,7 +9,6 @@ _By [Joris Brugman](https://github.com/theartcher)_
   - [Introduction](#introduction)
   - [Organizations, repositories \& other interesting references](#organizations-repositories--other-interesting-references)
     - [Research documents](#research-documents)
-    - [Reading guide](#reading-guide)
       - [Learning outcomes](#learning-outcomes)
   - [Recent changes](#recent-changes)
     - [Week 1 - 3](#week-1---3)
@@ -27,8 +26,6 @@ I've done nothing interesting so far :(
 ### Research documents
 
 - [Mini-technical research - Microphone Mixer](./documentation/microphone-mixer-technical-design.md)
-
-### Reading guide
 
 #### Learning outcomes
 
@@ -48,4 +45,7 @@ To get more specifics on what a specific learning outcome encompasses, take a lo
 - Created this portfolio.
 - Got a basic information infrastructure working, the duo project has a corresponding [Github organization](https://github.com/S4-Smart-mobile/) and a [JIRA board](/static/images/Jira-screenshot-21-02-2024.png).
 - Started work on the research document in regard to the [DUO app](https://github.com/S4-Smart-mobile/S4-Smart-Mobile/blob/main/documentation/research/cultural-exchange-research.md).
-- Did some mini-research for the individual project
+- Did some mini-research for the individual project's [tech case 24 'Microphone Mixer'](/documentation/microphone-mixer-technical-design.md). (The document displays the technical side of the case.)
+
+How's FeedPulse looking? Well I'm glad you asked:
+![FeedPulse ratings](./static/images/feedpulse-ratings-05-03-2024.png)
