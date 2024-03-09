@@ -32,11 +32,12 @@ Take your time to look through this document, **or [skip to the changes since la
 - Duo case
 
   - [Case research/documentation](https://github.com/S4-Smart-mobile/S4-Smart-Mobile/blob/main/documentation/research/cultural-exchange.md)
-  - ['Cultural exchange' - Github organization](https://github.com/S4-Smart-mobile/)
+  - [S4 - Github organization](https://github.com/S4-Smart-mobile/)
   - ['Cultural exchange' - Github repository](https://github.com/S4-Smart-mobile/S4-Smart-Mobile)
 
 - Individual cases
   - ['Microphone Mixer' - Mini-technical overview](./documentation/microphone-mixer-technical-design.md)
+  - ['Microphone Mixer' - Getting started](./microphone-mixer/README.MD)
   - ['Microphone Mixer' - Github repository](https://github.com/theartcher/S4-SM-Individual)
 
 #### Learning outcomes

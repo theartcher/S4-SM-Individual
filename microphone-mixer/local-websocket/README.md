@@ -9,14 +9,14 @@ This is very basic node code for creating an unsecured web-socket for RTC (real-
 3. Open folder which code was copied/cloned to.
 4. Run the command.
 
-   ```npm
+   ```bash
    npm i
    ```
 
 5. Wait for installation to finish.
 6. Run the command.
 
-   ```npm
+   ```bash
    node .
    ```
 
