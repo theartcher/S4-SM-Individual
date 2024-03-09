@@ -12,10 +12,11 @@ _By [Joris Brugman](https://github.com/theartcher)_
   - [Overview](#overview)
   - [Introduction](#introduction)
   - [Organizations, repositories \& other interesting references](#organizations-repositories--other-interesting-references)
-    - [Documents](#documents)
+    - [Connections](#connections)
       - [Learning outcomes](#learning-outcomes)
   - [Recent changes](#recent-changes)
     - [Week 1 - 3](#week-1---3)
+      - [How's FeedPulse looking? Well I'm glad you asked](#hows-feedpulse-looking-well-im-glad-you-asked)
       - [What's changing for next time?](#whats-changing-for-next-time)
 
 ## Introduction
@@ -26,7 +27,7 @@ Take your time to look through this document, **or [skip to the changes since la
 
 ## Organizations, repositories & other interesting references
 
-### Documents
+### Connections
 
 - Duo case
 
@@ -51,6 +52,8 @@ To get more specifics on what a specific learning outcome encompasses, take a lo
 
 ## Recent changes
 
+An overview of all the changes made categorized per assignment period.
+
 ### Week 1 - 3
 
 - Created this portfolio.
@@ -62,7 +65,8 @@ To get more specifics on what a specific learning outcome encompasses, take a lo
 
 - Did some mini-research for the individual project's [tech case 24 'Microphone Mixer'](/documentation/microphone-mixer-technical-design.md). _(The document displays the technical side of the case.)_
 
-How's FeedPulse looking? Well I'm glad you asked:
+#### How's FeedPulse looking? Well I'm glad you asked
+
 ![FeedPulse ratings](./static/images/feedpulse-ratings-05-03-2024.png)
 
 #### What's changing for next time?
