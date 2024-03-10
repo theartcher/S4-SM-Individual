@@ -38,7 +38,7 @@ Take your time to look through this document, **or [skip to the changes since la
 - Individual cases
   - ['Microphone Mixer' - Mini-technical overview](./documentation/microphone-mixer-technical-design.md)
   - ['Microphone Mixer' - Getting started](./microphone-mixer/README.MD)
-  - ['Microphone Mixer' - Github repository](https://github.com/theartcher/S4-SM-Individual)
+  - [Portfolio (Individual cases) - Github repository](https://github.com/theartcher/S4-SM-Individual)
 
 #### Learning outcomes
 
