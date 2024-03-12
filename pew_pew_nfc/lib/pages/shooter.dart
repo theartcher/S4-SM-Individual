@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:nfc_manager/nfc_manager.dart';
+import 'package:vibration/vibration.dart';
 import '../utils/snackbar.dart';
 
 const initialBullets = 20;
 
 class Shooter extends StatefulWidget {
-  const Shooter({super.key});
+  final List<NfcTag> ammo;
+  const Shooter({super.key, required this.ammo});
 
   @override
   State<StatefulWidget> createState() => _ShooterState();
 }
 
 class _ShooterState extends State<Shooter> {
-  List<NfcTag> usedTags = [];
+  int ammoIndex = 0;
   int bullets = initialBullets;
 
   @override
@@ -44,38 +46,54 @@ class _ShooterState extends State<Shooter> {
   }
 
   void _readTag(NfcTag tag) async {
-    List<int>? tagIdentifier = tag.data['ndef']['identifier'];
+    List<int>? tagIdentifier = tag.data['nfca']?['identifier'];
 
     if (tagIdentifier == null) {
-      snack("An error occurred reading the tag. Perhaps it's incompatible",
+      return snack(
+          "An error occurred reading the tag. Perhaps it's incompatible",
           context,
-          snackOption: SnackOptions.error, milliSecondsToShow: 1000);
-      return;
+          snackOption: SnackOptions.error,
+          milliSecondsToShow: 1000);
     }
 
-    bool isTagNew = !usedTags.any((element) =>
-        element.data['ndef']['identifier'].toString() ==
+    var maxAmmoIndex = widget.ammo.length - 1;
+
+    if (ammoIndex > maxAmmoIndex) {
+      return snack("You've used all the magazines", context,
+          snackOption: SnackOptions.warn, milliSecondsToShow: 500);
+    }
+
+    bool isCorrectTagAtIndex = widget.ammo
+            .elementAt(ammoIndex)
+            .data['nfca']?["identifier"]
+            .toString() ==
+        tagIdentifier.toString();
+
+    bool isTagInList = !widget.ammo.any((element) =>
+        element.data['ndef']?['identifier'].toString() ==
         tagIdentifier.toString());
 
-    if (isTagNew) {
+    if (!isTagInList) {
+      return snack("This magazine won't fit.", context,
+          snackOption: SnackOptions.error, milliSecondsToShow: 500);
+    }
+
+    if (isCorrectTagAtIndex) {
       setState(() {
-        usedTags.add(tag);
         bullets += 20;
+        ammoIndex += 1;
       });
-      snack('Magazine found! +20 bullets!', context,
+      return snack('Magazine found! +20 bullets!', context,
           snackOption: SnackOptions.success, milliSecondsToShow: 500);
     } else {
-      snack("Ugh, this magazine has no more bullets left!", context,
-          snackOption: SnackOptions.error, milliSecondsToShow: 500);
+      return snack("Ugh, I can't use this magazine right now!", context,
+          snackOption: SnackOptions.warn, milliSecondsToShow: 500);
     }
   }
 
   void _resetGame() async {
     setState(() {
-      bullets = initialBullets;
-    });
-    setState(() {
-      usedTags = [];
+      Navigator.pop(context);
     });
   }
 
@@ -84,8 +102,8 @@ class _ShooterState extends State<Shooter> {
       setState(() {
         bullets -= 5;
       });
-      snack('PEW! -5 bullets!', context,
-          snackOption: SnackOptions.success, milliSecondsToShow: 200);
+
+      Vibration.vibrate(duration: 250);
     }
 
     if (bullets <= 0) {
@@ -109,7 +127,7 @@ class _ShooterState extends State<Shooter> {
             ),
             ElevatedButton(
               onPressed: _resetGame,
-              child: const Text('RESET', style: TextStyle(color: Colors.red)),
+              child: const Text('QUIT', style: TextStyle(color: Colors.red)),
             ),
           ],
         ),
