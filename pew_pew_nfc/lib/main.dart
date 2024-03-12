@@ -1,6 +1,4 @@
 import 'package:pew_pew_nfc/pages/scanner.dart';
-
-import '/pages/shooter.dart';
 import 'package:flutter/material.dart';
 
 void main() {

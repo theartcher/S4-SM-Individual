@@ -5,7 +5,6 @@ import 'package:microphone_mixer_flutter/utils/file_api.dart';
 import 'package:microphone_mixer_flutter/utils/snackbar.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_sound/flutter_sound.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:uuid/uuid.dart';

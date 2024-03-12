@@ -61,7 +61,7 @@ class _StudioRouteState extends State<StudioRoute> {
   void getAudio() async {
     var path = await collectMergedAudio(context, GROUP_ID);
 
-    if (path == '' || path == null) {
+    if (path == '') {
       snack("Failed to retrieve an audio file.", context,
           snackOption: SnackOptions.error);
     }
