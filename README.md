@@ -15,6 +15,8 @@ _By [Joris Brugman](https://github.com/theartcher)_
     - [Connections](#connections)
       - [Learning outcomes](#learning-outcomes)
   - [Recent changes](#recent-changes)
+    - [Week 4 - 9](#week-4---9)
+  - [Historic](#historic)
     - [Week 1 - 3](#week-1---3)
       - [How's FeedPulse looking? Well I'm glad you asked](#hows-feedpulse-looking-well-im-glad-you-asked)
       - [What's changing for next time?](#whats-changing-for-next-time)
@@ -38,6 +40,7 @@ Take your time to look through this document, **or [skip to the changes since la
 - Individual cases
   - ['Microphone Mixer' - Mini-technical overview](./documentation/microphone-mixer-technical-design.md)
   - ['Microphone Mixer' - Getting started](./microphone-mixer/README.MD)
+  - ['Pew pew' - Getting started](./pew_pew_nfc/README.md)
   - [Portfolio (Individual cases) - Github repository](https://github.com/theartcher/S4-SM-Individual)
 
 #### Learning outcomes
@@ -54,6 +57,14 @@ To get more specifics on what a specific learning outcome encompasses, take a lo
 ## Recent changes
 
 An overview of all the changes made categorized per assignment period.
+
+### Week 4 - 9
+
+- Selected and created a new [tech case](./pew_pew_nfc/README.md).
+
+## Historic
+
+An overview of the old changes made. Not interesting if you are an assessor.
 
 ### Week 1 - 3
 
