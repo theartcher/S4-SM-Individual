@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nfc_manager/nfc_manager.dart';
-import 'package:pew_pew_nfc/pages/shooter.dart';
+import 'package:pew_pew_nfc/widgets/scanner/start_game.dart';
 import '../utils/snackbar.dart';
-
-const divider = SizedBox(
-  width: 100,
-  height: 25,
-);
 
 class Scanner extends StatefulWidget {
   const Scanner({super.key});
@@ -27,6 +22,7 @@ class _ScannerState extends State<Scanner> {
 
   @override
   void dispose() {
+    NfcManager.instance.stopSession();
     super.dispose();
   }
 
@@ -120,74 +116,58 @@ class _ScannerState extends State<Scanner> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Pew pew simulator')),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-                tags.length < 3
-                    ? "Scan ${3 - tags.length} more NFC tags!"
-                    : "Minimal required amount of tags scanned.",
-                style: const TextStyle(
-                    fontSize: 20, color: Color.fromARGB(255, 33, 41, 132))),
-            const Text("How to play", style: TextStyle(fontSize: 20)),
-            const Text("1. Scan at least 3 NFC tags.",
-                style: TextStyle(fontSize: 15)),
-            const Text("2. Press game.", style: TextStyle(fontSize: 15)),
-            const Text("3. Shoot the duck.", style: TextStyle(fontSize: 15)),
-            const Text(
-                "4. Kill the duck before running out of time or bullets.",
-                style: TextStyle(fontSize: 15)),
-            divider,
-            ElevatedButton(
-              onPressed: tags.length < 3
-                  ? null
-                  : () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Shooter(
-                            ammo: tags,
-                          ),
-                        ),
-                      );
-                    },
-              style: ButtonStyle(
-                backgroundColor:
-                    MaterialStateProperty.resolveWith<Color>((states) {
-                  if (states.contains(MaterialState.disabled)) {
-                    return Colors.red;
-                  }
-                  return Colors.green;
-                }),
+      body: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 32),
+          child: Column(
+            children: [
+              tutorialText,
+              divider,
+              Text(
+                  tags.length < 3
+                      ? "Scan ${3 - tags.length} more NFC tags!"
+                      : "Minimal required amount of tags scanned.",
+                  style: const TextStyle(
+                      fontSize: 20, color: Color.fromARGB(255, 33, 41, 132))),
+              divider,
+              StartGame(tags: tags),
+              divider,
+              ElevatedButton(
+                onPressed: tags.isEmpty
+                    ? null
+                    : () {
+                        _removeLast();
+                      },
+                child: const Text('Remove last scanned',
+                    style: TextStyle(color: Colors.lightBlue)),
               ),
-              child: const Text(
-                'Game!',
-                style: TextStyle(fontSize: 30, color: Colors.white),
+              ElevatedButton(
+                onPressed: tags.isEmpty
+                    ? null
+                    : () {
+                        _removeAll();
+                      },
+                child: const Text('Remove ALL scanned',
+                    style: TextStyle(color: Colors.red)),
               ),
-            ),
-            divider,
-            ElevatedButton(
-              onPressed: tags.isEmpty
-                  ? null
-                  : () {
-                      _removeLast();
-                    },
-              child: const Text('Remove last scanned',
-                  style: TextStyle(color: Colors.lightBlue)),
-            ),
-            ElevatedButton(
-              onPressed: tags.isEmpty
-                  ? null
-                  : () {
-                      _removeAll();
-                    },
-              child: const Text('Remove ALL scanned',
-                  style: TextStyle(color: Colors.red)),
-            ),
-          ],
-        ),
-      ),
+            ],
+          )),
     );
   }
 }
+
+const divider = SizedBox(
+  width: 100,
+  height: 25,
+);
+
+const tutorialText = Column(
+  crossAxisAlignment: CrossAxisAlignment.start,
+  children: [
+    Text("How to play", style: TextStyle(fontSize: 20)),
+    Text("1. Scan at least 3 NFC tags.", style: TextStyle(fontSize: 15)),
+    Text("2. Press game!", style: TextStyle(fontSize: 15)),
+    Text("3. Shoot the duck, don't miss.", style: TextStyle(fontSize: 15)),
+    Text("4. Kill the duck before running out of time or bullets.",
+        style: TextStyle(fontSize: 15)),
+  ],
+);

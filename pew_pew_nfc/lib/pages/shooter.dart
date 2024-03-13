@@ -32,6 +32,7 @@ class _ShooterState extends State<Shooter> {
 
   @override
   void dispose() {
+    NfcManager.instance.stopSession();
     super.dispose();
   }
 
