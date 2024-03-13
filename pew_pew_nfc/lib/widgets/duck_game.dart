@@ -1,9 +1,7 @@
 import 'dart:async';
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:gif/gif.dart';
-import 'package:pew_pew_nfc/utils/snackbar.dart';
 
 class DuckGame extends StatefulWidget {
   final void Function() onHit;
@@ -55,7 +53,6 @@ class _DuckGameState extends State<DuckGame>
 
   int _getRandomTime(int msMin, int msMax) {
     final randomDelay = Random().nextInt(msMax) + msMin;
-    print("Random delay: $randomDelay");
     return randomDelay;
   }
 
@@ -77,7 +74,7 @@ class _DuckGameState extends State<DuckGame>
               },
               child: Container(
                 alignment: Alignment.center,
-                color: Color.fromRGBO(35, 129, 188, 1),
+                color: const Color.fromRGBO(35, 129, 188, 1),
                 child: Transform.translate(
                   offset: _offset,
                   child: GestureDetector(

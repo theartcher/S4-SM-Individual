@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:nfc_manager/nfc_manager.dart';
-import 'package:pew_pew_nfc/widgets/duck-game.dart';
+import 'package:pew_pew_nfc/widgets/duck_game.dart';
 import 'package:timer_count_down/timer_count_down.dart';
 import 'package:vibration/vibration.dart';
 import '../utils/snackbar.dart';
@@ -158,7 +158,7 @@ class _ShooterState extends State<Shooter> {
                     seconds: 30,
                     build: (BuildContext context, double time) =>
                         Text(time.toString()),
-                    interval: Duration(milliseconds: 100),
+                    interval: const Duration(milliseconds: 100),
                     onFinished: () {
                       _gameOver();
                     },
