@@ -1,9 +1,13 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:nfc_manager/nfc_manager.dart';
+import 'package:pew_pew_nfc/widgets/duck-game.dart';
+import 'package:timer_count_down/timer_count_down.dart';
 import 'package:vibration/vibration.dart';
 import '../utils/snackbar.dart';
 
-const initialBullets = 20;
+const initialBullets = 5;
 
 class Shooter extends StatefulWidget {
   final List<NfcTag> ammo;
@@ -14,7 +18,9 @@ class Shooter extends StatefulWidget {
 }
 
 class _ShooterState extends State<Shooter> {
+  bool gameOver = false;
   int ammoIndex = 0;
+  int health = 10;
   int bullets = initialBullets;
 
   @override
@@ -36,6 +42,12 @@ class _ShooterState extends State<Shooter> {
         _readTag(tag);
       },
     );
+  }
+
+  void _gameOver() {
+    setState(() {
+      gameOver = true;
+    });
   }
 
   Future<void> _checkNfcPermission() async {
@@ -80,7 +92,7 @@ class _ShooterState extends State<Shooter> {
 
     if (isCorrectTagAtIndex) {
       setState(() {
-        bullets += 20;
+        bullets += 5;
         ammoIndex += 1;
       });
       return snack('Magazine found! +20 bullets!', context,
@@ -97,18 +109,37 @@ class _ShooterState extends State<Shooter> {
     });
   }
 
-  void _shoot() {
-    if (bullets >= 5) {
+  bool _shoot() {
+    if (bullets >= 1) {
       setState(() {
-        bullets -= 5;
+        bullets -= 1;
       });
-
-      Vibration.vibrate(duration: 250);
+      return true;
     }
 
     if (bullets <= 0) {
       snack('Out of bullets!', context, snackOption: SnackOptions.error);
+      return false;
     }
+    return false;
+  }
+
+  void _onHit() {
+    if (!_shoot()) return;
+
+    setState(() {
+      health -= 1;
+    });
+
+    Vibration.vibrate(duration: 250);
+    snack('HIT', context,
+        snackOption: SnackOptions.success, milliSecondsToShow: 200);
+  }
+
+  void _onMiss() {
+    if (!_shoot()) return;
+    snack("MISS", context,
+        snackOption: SnackOptions.warn, milliSecondsToShow: 250);
   }
 
   @override
@@ -116,21 +147,48 @@ class _ShooterState extends State<Shooter> {
     return Scaffold(
       appBar: AppBar(title: const Text('Pew pew simulator')),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(bullets <= 0 ? "No bullets left" : "$bullets bullets left",
-                style: const TextStyle(fontSize: 30)),
-            ElevatedButton(
-              onPressed: bullets >= 5 ? _shoot : null,
-              child: const Text('SHOOT', style: TextStyle(color: Colors.green)),
-            ),
-            ElevatedButton(
-              onPressed: _resetGame,
-              child: const Text('QUIT', style: TextStyle(color: Colors.red)),
-            ),
-          ],
-        ),
+        child: health > 0 && bullets <= 0 && ammoIndex >= widget.ammo.length ||
+                gameOver
+            ? const Text("WOMP WOMP YOU SUCK!",
+                style: TextStyle(fontSize: 50, color: Colors.red))
+            : Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Countdown(
+                    seconds: 30,
+                    build: (BuildContext context, double time) =>
+                        Text(time.toString()),
+                    interval: Duration(milliseconds: 100),
+                    onFinished: () {
+                      _gameOver();
+                    },
+                  ),
+                  Text(
+                      bullets <= 0
+                          ? "No bullets left"
+                          : "$bullets bullets left",
+                      style: const TextStyle(fontSize: 30)),
+                  Text("$health HP",
+                      style: const TextStyle(fontSize: 25, color: Colors.red)),
+                  Expanded(
+                    child: Container(
+                      child: health > 0
+                          ? DuckGame(
+                              onHit: _onHit,
+                              onMiss: _onMiss,
+                            )
+                          : const Text("You win!",
+                              style:
+                                  TextStyle(fontSize: 50, color: Colors.green)),
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: _resetGame,
+                    child:
+                        const Text('QUIT', style: TextStyle(color: Colors.red)),
+                  ),
+                ],
+              ),
       ),
     );
   }

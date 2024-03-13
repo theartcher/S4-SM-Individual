@@ -3,6 +3,11 @@ import 'package:nfc_manager/nfc_manager.dart';
 import 'package:pew_pew_nfc/pages/shooter.dart';
 import '../utils/snackbar.dart';
 
+const divider = SizedBox(
+  width: 100,
+  height: 25,
+);
+
 class Scanner extends StatefulWidget {
   const Scanner({super.key});
 
@@ -122,12 +127,18 @@ class _ScannerState extends State<Scanner> {
             Text(
                 tags.length < 3
                     ? "Scan ${3 - tags.length} more NFC tags!"
-                    : "Required amount of tags scanned.",
+                    : "Minimal required amount of tags scanned.",
                 style: const TextStyle(
                     fontSize: 20, color: Color.fromARGB(255, 33, 41, 132))),
+            const Text("How to play", style: TextStyle(fontSize: 20)),
+            const Text("1. Scan at least 3 NFC tags.",
+                style: TextStyle(fontSize: 15)),
+            const Text("2. Press game.", style: TextStyle(fontSize: 15)),
+            const Text("3. Shoot the duck.", style: TextStyle(fontSize: 15)),
             const Text(
-                "Please scan your tags in the order that you want to play with them.",
-                style: TextStyle(fontSize: 20)),
+                "4. Kill the duck before running out of time or bullets.",
+                style: TextStyle(fontSize: 15)),
+            divider,
             ElevatedButton(
               onPressed: tags.length < 3
                   ? null
@@ -152,9 +163,10 @@ class _ScannerState extends State<Scanner> {
               ),
               child: const Text(
                 'Game!',
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(fontSize: 30, color: Colors.white),
               ),
             ),
+            divider,
             ElevatedButton(
               onPressed: tags.isEmpty
                   ? null
