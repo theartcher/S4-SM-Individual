@@ -16,9 +16,11 @@ _By [Joris Brugman](https://github.com/theartcher)_
       - [Learning outcomes](#learning-outcomes)
   - [Recent changes](#recent-changes)
     - [Week 4 - 9](#week-4---9)
-  - [Historic](#historic)
-    - [Week 1 - 3](#week-1---3)
       - [How's FeedPulse looking? Well I'm glad you asked](#hows-feedpulse-looking-well-im-glad-you-asked)
+      - [What's changed since last time?](#whats-changed-since-last-time)
+  - [History](#history)
+    - [Week 1 - 3](#week-1---3)
+      - [How's FeedPulse looking? Well I'm glad you asked](#hows-feedpulse-looking-well-im-glad-you-asked-1)
       - [What's changing for next time?](#whats-changing-for-next-time)
 
 ## Introduction
@@ -33,9 +35,10 @@ Take your time to look through this document, **or [skip to the changes since la
 
 - Duo case
 
-  - [Case research/documentation](https://github.com/S4-Smart-mobile/S4-Smart-Mobile/blob/main/documentation/research/cultural-exchange.md)
   - [S4 - Github organization](https://github.com/S4-Smart-mobile/)
-  - ['Cultural exchange' - Github repository](https://github.com/S4-Smart-mobile/S4-Smart-Mobile)
+  - [Duo cases - Github repository](https://github.com/S4-Smart-mobile/S4-Smart-Mobile)
+  - ['Cultural exchange' research/documentation](https://github.com/S4-Smart-mobile/S4-Smart-Mobile/blob/main/documentation/research/cultural-exchange.md)
+  - ['Mood predictor' research/documentation](https://github.com/S4-Smart-mobile/S4-Smart-Mobile/blob/main/documentation/research/mood-predictor.md)
 
 - Individual cases
   - ['Microphone Mixer' - Mini-technical overview](./documentation/microphone-mixer-technical-design.md)
@@ -61,8 +64,36 @@ An overview of all the changes made categorized per assignment period.
 ### Week 4 - 9
 
 - Selected and created a new [tech case](./pew_pew_nfc/README.md).
+- Did the following for the [duo case documentation](https://github.com/S4-Smart-mobile/S4-Smart-Mobile/blob/main/documentation/research/mood-predictor.md):
+  - Created the [persona's](https://github.com/S4-Smart-mobile/S4-Smart-Mobile/blob/main/documentation/research/mood-predictor.md#personas).
+  - Created & held the [first survey](https://github.com/S4-Smart-mobile/S4-Smart-Mobile/blob/main/documentation/interviews-surveys/mood-mental-health-survey.md), documented the findings.
+  - Created [problem definitions](https://github.com/S4-Smart-mobile/S4-Smart-Mobile/blob/main/documentation/research/mood-predictor.md#define) to further research.
+  - Researched problem definition [1](https://github.com/S4-Smart-mobile/S4-Smart-Mobile/blob/main/documentation/research/mood-predictor.md#1-what-data-visualization-methods-would-be-effective-in-helping-users-understand-mood-trendspatterns) and [2](https://github.com/S4-Smart-mobile/S4-Smart-Mobile/blob/main/documentation/research/mood-predictor.md#2-how-can-we-minimize-the-impact-on-user-daily-routines-yet-still-effectively-predict-moods).
+  - Created & held the [2nd survey](https://github.com/S4-Smart-mobile/S4-Smart-Mobile/blob/main/documentation/interviews-surveys/mood-mental-health-survey-V2.md), documented the findings.
+  - [Ideated with Morris](https://github.com/S4-Smart-mobile/S4-Smart-Mobile/blob/main/documentation/research/mood-predictor.md#ideate).
+  - [Research competitor's apps](https://github.com/S4-Smart-mobile/S4-Smart-Mobile/blob/main/documentation/research/mood-predictor.md#competitor-apps).
+  - Defined the [colour/font schema](https://github.com/S4-Smart-mobile/S4-Smart-Mobile/blob/main/documentation/research/mood-predictor.md#colour-palette) for the app.
+  - Created the 'setup', 'survey' & 'home' page [designs](https://www.figma.com/file/jL4eFw7Sp32cZ8vMQ4LUv2/MoodTracker?type=design&node-id=0%3A1&mode=design&t=9rJcZkRzKcvTGmtp-1).
+  - Implemented the [setup](https://github.com/S4-Smart-mobile/S4-Smart-Mobile/blob/main/mood_predictor_app/lib/pages/setup.dart), [survey](https://github.com/S4-Smart-mobile/S4-Smart-Mobile/blob/main/mood_predictor_app/lib/pages/questions.dart) & [home](https://github.com/S4-Smart-mobile/S4-Smart-Mobile/blob/main/mood_predictor_app/lib/pages/home.dart) page into the app (dynamic rendering but static content).
+  - UX tested the alternative 'home' pages [designs](https://www.figma.com/file/jL4eFw7Sp32cZ8vMQ4LUv2/MoodTracker?type=design&node-id=0%3A1&mode=design&t=9rJcZkRzKcvTGmtp-1).
+  - Created the [video/advert](https://www.youtube.com/watch?v=W6JgpJtueeA).
+- Systematically helped/worked with [Chantal Maas](https://www.linkedin.com/in/chantal-maas-605aa22a4/) with various API/technical issues. She in turn helped me with UX/UI.
 
-## Historic
+#### How's FeedPulse looking? Well I'm glad you asked
+
+![Personal FeedPulse overview](./static/images/feedpulse-ratings-personal-18-04-2024.png)
+![Group FeedPulse overview](./static/images/feedpulse-ratings-group-18-04-2024.png)
+
+#### What's changed since last time?
+
+- Morris has helped significantly more in the duo case in regard to documentation, coding and designing.
+- I've consistently been receiving weekly feedback from Erik.
+- Commit messaging has are actually meaningful nowadays.
+  ![Git commit history](./static/images/git-commit-history-18-04-2024.png)
+- Ended up not involving JIRA more, as we saw it was not necessary as our communication was already clear enough between one another.
+- Design thinking was implemented much more and very useful as a structure to hold onto.
+
+## History
 
 An overview of the old changes made. Not interesting if you are an assessor.
 
