@@ -88,9 +88,9 @@ An overview of all the changes made categorized per assignment period.
 
 - Morris has helped significantly more in the duo case in regard to documentation, coding and designing.
 - I've consistently been receiving weekly feedback from Erik.
-- Commit messaging has are actually meaningful nowadays.
+- Commit messaging are actually meaningful nowadays.
   ![Git commit history](./static/images/git-commit-history-18-04-2024.png)
-- Ended up not involving JIRA more, as we saw it was not necessary as our communication was already clear enough between one another.
+- Ended up not involving JIRA more, as we saw it was not necessary due to our communication in it's current state already being sufficient for the complexity of the project.
 - Design thinking was implemented much more and very useful as a structure to hold onto.
 
 ## History
