@@ -15,12 +15,14 @@ _By [Joris Brugman](https://github.com/theartcher)_
     - [Connections](#connections)
       - [Learning outcomes](#learning-outcomes)
   - [Recent changes](#recent-changes)
-    - [Week 4 - 9](#week-4---9)
+    - [Week 10 - 14](#week-10---14)
       - [How's FeedPulse looking? Well I'm glad you asked](#hows-feedpulse-looking-well-im-glad-you-asked)
-      - [What's changed since last time?](#whats-changed-since-last-time)
   - [History](#history)
-    - [Week 1 - 3](#week-1---3)
+    - [Week 4 - 9](#week-4---9)
       - [How's FeedPulse looking? Well I'm glad you asked](#hows-feedpulse-looking-well-im-glad-you-asked-1)
+      - [What's changed since last time?](#whats-changed-since-last-time)
+    - [Week 1 - 3](#week-1---3)
+      - [How's FeedPulse looking? Well I'm glad you asked](#hows-feedpulse-looking-well-im-glad-you-asked-2)
       - [What's changing for next time?](#whats-changing-for-next-time)
 
 ## Introduction
@@ -61,6 +63,53 @@ To get more specifics on what a specific learning outcome encompasses, take a lo
 
 An overview of all the changes made categorized per assignment period.
 
+### Week 10 - 14
+
+- Worked on the [internship project proposal](https://stichtingfontys-my.sharepoint.com/:w:/g/personal/504943_student_fontys_nl/ETI10_batgpBmRtuV6-sKB0Bxsxdny2amfay4lCMM9CIsQ?email=sven%40aigro.nl&e=j1tEr2).
+- Worked as SCRUM master for the group project.
+- Set up the [Github organization](https://github.com/StudioKrom-SmartMobile-2024).
+- Set up the [Github repository](https://github.com/StudioKrom-SmartMobile-2024/frontend).
+- Set up the [JIRA](https://io-dev.atlassian.net/jira/software/projects/IPSM4/boards/5).
+- [Sprint 0](https://www.notion.so/Sprint-0-2f13d54732414a1b804a1bbac14945ff)
+  - Conducted [research](https://www.notion.so/Sprint-0-2f13d54732414a1b804a1bbac14945ff) into overstimulation.
+  - Rewrote, specified and compacted found research elements.
+  - Helped the team create the [persona](https://www.figma.com/file/Z4ujWZEm278iproVnWCyIs/Untitled?type=design&mode=design&t=8jt6D2XNAnusgjW5-1)'s, [target audience](https://www.notion.so/Sprint-0-2f13d54732414a1b804a1bbac14945ff?pvs=4#81014fed2fde4bfc880ee83477471a7c) & brainstorm.
+  - Prepared the backlog & planning for sprint 1.
+  - Organized SCRUM poker for the team.
+- [Sprint 1](https://www.notion.so/Sprint-I-69351973c8ee4d4fbd3dd8d1b2623718)
+  - Conducted & formulated [technical research](https://www.notion.so/Technical-Research-Demos-481ede4b614c4195874ad1d97018eb30).
+  - Helped Morris reformat his research to be more readable.
+  - Created [demo's](https://github.com/StudioKrom-SmartMobile-2024/frontend/tree/main/demos) to accompany the conclusions from the technical research.
+  - Prepared the backlog & planning for sprint 2.
+  - Created the [Q&A questions](https://www.notion.so/Psychologist-Q-A-ff21d65d5c0b417b91a7752de3085b18) for the psychologist.
+  - Reviewed (and where necessary-) rewrote the concept document.
+- [Sprint 2](https://www.notion.so/Sprint-II-e03a5e1d62f643f5a0faa3434564b9b3)
+  - Gathered a VR camera & [footage](https://stichtingfontys-my.sharepoint.com/:v:/g/personal/504943_student_fontys_nl/EWpCtFcGQHNJuWTiuw2KcWABN7YC9z-K_JSar5FWJJeY8Q?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=AiEjX8)
+  - Documented the [360 footage/scenarios](https://www.notion.so/360-VR-Footage-885520eeb5b340cc8a4b0c067af8b309)
+  - Did a lot of research into ambisonic sound edition/configuration, sadly I was unable to get far.
+  - Implemented the design of the [VR-player](https://github.com/StudioKrom-SmartMobile-2024/frontend/blob/main/demos/vr_demo/lib/pages/VideoPlayer.dart)
+    - Wrapped the [SoundManager](https://github.com/StudioKrom-SmartMobile-2024/frontend/blob/main/demos/vr_demo/lib/utils/SoundManager.dart) into an abstract class and extended using [TrainScenarioManager](https://github.com/StudioKrom-SmartMobile-2024/frontend/blob/main/demos/vr_demo/lib/utils/SoundManager.dart#L57)
+    - Added autoplay
+    - Added disclaimers/[confirmation dialogues](https://github.com/StudioKrom-SmartMobile-2024/frontend/blob/main/demos/vr_demo/lib/widgets/vr-dialogues/ConfirmationDialogue.dart) (includes pausing when showing and handling gestures outside of the dialogue)
+    - Added [settings](https://github.com/StudioKrom-SmartMobile-2024/frontend/blob/main/demos/vr_demo/lib/widgets/vr-dialogues/SettingsOverlay.dart)
+  - Debugged TomTom routing/area avoid API with [Chantal Maas](https://www.linkedin.com/in/chantal-maas-605aa22a4/).
+  - Implemented the [Overload design](https://www.figma.com/design/vjSt02gUbVpAXFiB0JzmIz/Overload-App-Design) into the app
+    - Updated the [gradient button](https://github.com/StudioKrom-SmartMobile-2024/frontend/blob/main/overload/lib/widgets/gradient_button.dart) widget to be more re-useable
+    - Introduced [constants](https://github.com/StudioKrom-SmartMobile-2024/frontend/blob/main/overload/lib/constants.dart) as to make development and maintenance easier
+    - [Update 'welcome' page](https://github.com/StudioKrom-SmartMobile-2024/frontend/blob/main/overload/lib/pages/welcome.dart) to be more readable and not overflow
+    - [Update 'home' page](https://github.com/StudioKrom-SmartMobile-2024/frontend/blob/main/overload/lib/pages/home.dart) to be more readable and less prone to flex errors
+    - [Update 'experience cards'](https://github.com/StudioKrom-SmartMobile-2024/frontend/blob/main/overload/lib/widgets/experience_cards.dart) to better work with the icons and remove redundant/error prone code.
+
+#### How's FeedPulse looking? Well I'm glad you asked
+
+![Group FeedPulse overview](./static/images/group_feedpulse.png)
+![Peer review 1 FeedPulse overview](./static/images/peer-review.png)
+![Peer review 2 FeedPulse overview](./static/images/peer-review-2.png)
+
+## History
+
+An overview of the old changes made. Not interesting if you are an assessor.
+
 ### Week 4 - 9
 
 - Selected and created a new [tech case](./pew_pew_nfc/README.md).
@@ -92,10 +141,6 @@ An overview of all the changes made categorized per assignment period.
   ![Git commit history](./static/images/git-commit-history-18-04-2024.png)
 - Ended up not involving JIRA more, as we saw it was not necessary due to our communication in it's current state already being sufficient for the complexity of the project.
 - Design thinking was implemented much more and very useful as a structure to hold onto.
-
-## History
-
-An overview of the old changes made. Not interesting if you are an assessor.
 
 ### Week 1 - 3
 
