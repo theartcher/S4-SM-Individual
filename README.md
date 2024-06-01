@@ -78,7 +78,7 @@ An overview of all the changes made categorized per assignment period.
   - Organized SCRUM poker for the team.
 - [Sprint 1](https://www.notion.so/Sprint-I-69351973c8ee4d4fbd3dd8d1b2623718)
   - Conducted & formulated [technical research](https://www.notion.so/Technical-Research-Demos-481ede4b614c4195874ad1d97018eb30).
-  - Helped Morris reformat his research to be more readable.
+  - Helped [Morris](https://www.linkedin.com/in/morris-h-876801276/) reformat his research to be more readable.
   - Created [demo's](https://github.com/StudioKrom-SmartMobile-2024/frontend/tree/main/demos) to accompany the conclusions from the technical research.
   - Prepared the backlog & planning for sprint 2.
   - Created the [Q&A questions](https://www.notion.so/Psychologist-Q-A-ff21d65d5c0b417b91a7752de3085b18) for the psychologist.
@@ -86,7 +86,7 @@ An overview of all the changes made categorized per assignment period.
 - [Sprint 2](https://www.notion.so/Sprint-II-e03a5e1d62f643f5a0faa3434564b9b3)
   - Gathered a VR camera & [footage](https://stichtingfontys-my.sharepoint.com/:v:/g/personal/504943_student_fontys_nl/EWpCtFcGQHNJuWTiuw2KcWABN7YC9z-K_JSar5FWJJeY8Q?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=AiEjX8)
   - Documented the [360 footage/scenarios](https://www.notion.so/360-VR-Footage-885520eeb5b340cc8a4b0c067af8b309)
-  - Did a lot of research into ambisonic sound edition/configuration, sadly I was unable to get far.
+  - Did a lot of research into ambisonic sound editing/configuration, sadly I was unable to get far.
   - Implemented the design of the [VR-player](https://github.com/StudioKrom-SmartMobile-2024/frontend/blob/main/demos/vr_demo/lib/pages/VideoPlayer.dart)
     - Wrapped the [SoundManager](https://github.com/StudioKrom-SmartMobile-2024/frontend/blob/main/demos/vr_demo/lib/utils/SoundManager.dart) into an abstract class and extended using [TrainScenarioManager](https://github.com/StudioKrom-SmartMobile-2024/frontend/blob/main/demos/vr_demo/lib/utils/SoundManager.dart#L57)
     - Added autoplay
@@ -99,6 +99,7 @@ An overview of all the changes made categorized per assignment period.
     - [Update 'welcome' page](https://github.com/StudioKrom-SmartMobile-2024/frontend/blob/main/overload/lib/pages/welcome.dart) to be more readable and not overflow
     - [Update 'home' page](https://github.com/StudioKrom-SmartMobile-2024/frontend/blob/main/overload/lib/pages/home.dart) to be more readable and less prone to flex errors
     - [Update 'experience cards'](https://github.com/StudioKrom-SmartMobile-2024/frontend/blob/main/overload/lib/widgets/experience_cards.dart) to better work with the icons and remove redundant/error prone code.
+    - Created an [animation](https://github.com/StudioKrom-SmartMobile-2024/frontend/blob/main/overload/lib/widgets/OverstimulateIntroAnimation.dart) on the welcome page using the [marquee effect](https://github.com/StudioKrom-SmartMobile-2024/frontend/blob/main/overload/lib/widgets/MarqueeEffect.dart). (**IMPORTANT NOTE: The MarqueeEffect.dart was only updated by me, the original code is credited in the code.**)
 
 #### How's FeedPulse looking? Well I'm glad you asked
 
