@@ -16,6 +16,7 @@ _By [Joris Brugman](https://github.com/theartcher)_
       - [Learning outcomes](#learning-outcomes)
   - [Recent changes](#recent-changes)
     - [Week 10 - 14](#week-10---14)
+      - [Additional context - PO skills](#additional-context---po-skills)
       - [How's FeedPulse looking? Well I'm glad you asked](#hows-feedpulse-looking-well-im-glad-you-asked)
   - [History](#history)
     - [Week 4 - 9](#week-4---9)
@@ -100,6 +101,10 @@ An overview of all the changes made categorized per assignment period.
     - [Update 'home' page](https://github.com/StudioKrom-SmartMobile-2024/frontend/blob/main/overload/lib/pages/home.dart) to be more readable and less prone to flex errors
     - [Update 'experience cards'](https://github.com/StudioKrom-SmartMobile-2024/frontend/blob/main/overload/lib/widgets/experience_cards.dart) to better work with the icons and remove redundant/error prone code.
     - Created an [animation](https://github.com/StudioKrom-SmartMobile-2024/frontend/blob/main/overload/lib/widgets/OverstimulateIntroAnimation.dart) on the welcome page using the [marquee effect](https://github.com/StudioKrom-SmartMobile-2024/frontend/blob/main/overload/lib/widgets/MarqueeEffect.dart). (**IMPORTANT NOTE: The MarqueeEffect.dart was only updated by me, the original code is credited in the code.**)
+
+#### Additional context - PO skills
+
+For more context relating to management & control in the group project, do make sure to visit the [management & controls document](./documentation/learning-outcomes/5-management-and-control.mds)
 
 #### How's FeedPulse looking? Well I'm glad you asked
 
